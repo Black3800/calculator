@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 const keyInputs = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '±', '0', '.',
-                    '+', '-', '*', '/', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '='];
+                    '+', '-', '*', '/', '%', '='];
 
 class Buttons extends React.Component
 {
@@ -53,15 +53,6 @@ class Operators extends React.Component
                 <Buttons text="*" clickHandler={this.props.clickHandler} />
                 <Buttons text="/" clickHandler={this.props.clickHandler} />
                 <Buttons text="%" clickHandler={this.props.clickHandler} />
-                <Buttons text="a" clickHandler={this.props.clickHandler} />
-                <Buttons text="b" clickHandler={this.props.clickHandler} />
-                <Buttons text="c" clickHandler={this.props.clickHandler} />
-                <Buttons text="d" clickHandler={this.props.clickHandler} />
-                <Buttons text="e" clickHandler={this.props.clickHandler} />
-                <Buttons text="f" clickHandler={this.props.clickHandler} />
-                <Buttons text="g" clickHandler={this.props.clickHandler} />
-                <Buttons text="h" clickHandler={this.props.clickHandler} />
-                <Buttons text="i" clickHandler={this.props.clickHandler} />
                 <Buttons text="=" clickHandler={this.props.clickHandler} width="span" />
             </div>
         );
