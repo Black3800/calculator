@@ -94,6 +94,8 @@ class Calculator extends React.Component
     {
         super(props);
         this.state = { expression: 'Welcome, 001!' };
+
+        this.onButtonPressed = this.onButtonPressed.bind(this);
     }
 
     onButtonPressed(buttonValue)
