@@ -1,41 +1,51 @@
 @keyframes invalidBounce {
 	0% {
+        transform: translateX(0%);
         background: rgba(255, 51, 51, 1);
 	}
 
 	12% {
+        transform: translateX(-1.09%);
         background: rgba(255, 51, 51, 0.89);
 	}
 
 	24% {
+        transform: translateX(1.06%);
 		background: rgba(255, 51, 51, 0.56);
 	}
 
 	36% {
+        transform: translateX(-0.81%);
 		background: rgba(255, 51, 51, 0.02);
 	}
 
 	54% {
+        transform: translateX(0.92%);
 		background: rgba(255, 51, 51, 0.25);
 	}
 
 	74% {
+        transform: translateX(-0.6%);
 		background: rgba(255, 51, 51, 0.02);
 	}
 
 	82% {
+        transform: translateX(0.5%);
 		background: rgba(255, 51, 51, 0.06);
 	}
 
 	92% {
+        transform: translateX(-0.2%);
 		background: rgba(255, 51, 51, 0.01);
 	}
 
 	96% {
+        transform: translateX(0.16%);
 		background: rgba(255, 51, 51, 0.02);
 	}
 
 	100% {
+        transform: translateX(0%);
 		background: rgba(255, 51, 51, 0);
 	}
 
