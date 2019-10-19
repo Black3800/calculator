@@ -1,3 +1,46 @@
+@keyframes invalidBounce {
+	0% {
+        background: rgba(255, 51, 51, 1);
+	}
+
+	12% {
+        background: rgba(255, 51, 51, 0.89);
+	}
+
+	24% {
+		background: rgba(255, 51, 51, 0.56);
+	}
+
+	36% {
+		background: rgba(255, 51, 51, 0.02);
+	}
+
+	54% {
+		background: rgba(255, 51, 51, 0.25);
+	}
+
+	74% {
+		background: rgba(255, 51, 51, 0.02);
+	}
+
+	82% {
+		background: rgba(255, 51, 51, 0.06);
+	}
+
+	92% {
+		background: rgba(255, 51, 51, 0.01);
+	}
+
+	96% {
+		background: rgba(255, 51, 51, 0.02);
+	}
+
+	100% {
+		background: rgba(255, 51, 51, 0);
+	}
+
+}
+
 body
 {
     background: linear-gradient(37deg, rgb(56, 0, 77), rgb(37, 0, 51));
@@ -29,6 +72,11 @@ body
     font-size: 200%;
     box-sizing: border-box;
     align-self: center;
+}
+
+.invalid
+{
+    animation: invalidBounce 0.777s;
 }
 
 .pad

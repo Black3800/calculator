@@ -83,10 +83,39 @@ class Pad extends React.Component
 
 class Display extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.ref = React.createRef();
+
+        this.displayInvalidClear = this.displayInvalidClear.bind(this);
+    }
+
+    displayInvalidClear()
+    {
+        this.ref.current.className = "display";
+        console.log("remove");
+    }
+
     render()
     {
+        let myClass;
+
+        if(this.props.invalid)
+        {
+            myClass = "display invalid";
+            console.log("add");
+            setTimeout(this.displayInvalidClear, 777);
+        }
+        else
+        {
+            myClass = "display";
+        }
+
         return(
-            <div className="display">{this.props.text}</div>
+            <div className={myClass} ref={this.ref}>
+                {this.props.text}
+            </div>
         );
     }
 }
@@ -96,10 +125,17 @@ class Calculator extends React.Component
     constructor(props)
     {
         super(props);
-        this.state = { expression: 'Welcome, 001!', init: true };
+        this.state = {
+            expression: 'Calculator XD, press or type to begin',
+            init: true,
+            invalid: false
+        };
         this.ref = React.createRef();
 
+        this.compute = this.compute.bind(this);
         this.delete = this.delete.bind(this);
+        this.clear = this.clear.bind(this);
+        this.invalidClear = this.invalidClear.bind(this);
         this.onKeyDowned = this.onKeyDowned.bind(this);
         this.onKeyPressed = this.onKeyPressed.bind(this);
         this.onButtonPressed = this.onButtonPressed.bind(this);
@@ -110,18 +146,49 @@ class Calculator extends React.Component
         this.ref.current.focus();
     }
 
+    compute()
+    {
+        try
+        {
+            console.log(this.state.expression + " = " + eval(this.state.expression));
+            return eval(this.state.expression);
+        }
+        catch(error)
+        {
+            if(error instanceof SyntaxError)
+            {
+                console.log("invalid");
+                return "error";
+            }
+        }
+    }
+
     delete()
     {
         this.setState(state => {
             if (state.init) {
-                return { expression: '', init: false }
+                this.clear();
             }
             return { expression: state.expression.slice(0, -1) }
         });
 
-        console.log('del');
+        //console.log('del');
     }
 
+    clear()
+    {
+        this.setState(state => {
+            return { expression: '', init: false }
+        });
+    }
+
+    invalidClear()
+    {
+        this.setState(state => {
+            return { invalid: false }
+        });
+    }
+    
     onKeyDowned(event)
     {
         let charcode = event.keyCode;
@@ -130,8 +197,12 @@ class Calculator extends React.Component
         {
             this.onButtonPressed('=');
         }
-        else if (charcode === 8 || charcode === 46) {
+        else if (charcode === 8) {
             this.delete();
+        }
+        else if (charcode === 46)
+        {
+            this.clear();
         }
     }
 
@@ -146,14 +217,32 @@ class Calculator extends React.Component
 
     onButtonPressed(buttonValue)
     {
-        this.setState(state => {
-            if(state.init)
-            {
-                return { expression: buttonValue, init: false }
-            }
-            return {expression: state.expression + buttonValue}
-        });
-        //console.log(buttonValue);
+        if(buttonValue === '=')
+        {
+            this.setState(state => {
+                let result = this.compute();
+                if(result === "error")
+                {
+                    setTimeout(this.invalidClear, 777);
+                    return { invalid: true }
+                }
+                else
+                {
+                    return { expression: result }
+                }
+            });
+        }
+        else
+        {
+            this.setState(state => {
+                if(state.init)
+                {
+                    return { expression: buttonValue, init: false }
+                }
+                return {expression: state.expression + buttonValue}
+            });
+            //console.log(buttonValue);
+        }
     }
 
     render()
@@ -165,8 +254,8 @@ class Calculator extends React.Component
               onKeyDown={this.onKeyDowned}
               tabIndex="0"
               ref={this.ref}>
-                <Display text={this.state.expression}/>
-                <Pad clickHandler={this.onButtonPressed}/>
+                <Display text={this.state.expression} invalid={this.state.invalid}/>
+                <Pad clickHandler={this.onButtonPressed} />
             </div>
         );
     }
